@@ -21,10 +21,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -54,40 +51,39 @@ fun HomeScreen(
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-            // 登录状态横条
-            LoginBanner(
-                isLoggedIn = isLoggedIn,
-                userName = userName,
-                onLogin = { appViewModel.login() },
-                onLogout = { appViewModel.logout() }
-            )
+        // 登录状态横条
+        LoginBanner(
+            isLoggedIn = isLoggedIn,
+            userName = userName,
+            onLogin = { appViewModel.login() },
+            onLogout = { appViewModel.logout() }
+        )
 
-            when {
-                homeState.isLoading -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
-                    }
+        when {
+            homeState.isLoading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
                 }
-                homeState.errorMessage != null -> {
-                    ErrorView(
-                        message = homeState.errorMessage ?: "未知错误",
-                        onRetry = { homeViewModel.retry() }
-                    )
-                }
-                else -> {
-                    LazyColumn(
-                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        items(homeState.posts, key = { it.id }) { post ->
-                            PostCard(
-                                post = post,
-                                onClick = { onNavigateToDetail(post.id) }
-                            )
-                        }
+            }
+            homeState.errorMessage != null -> {
+                ErrorView(
+                    message = homeState.errorMessage ?: "未知错误",
+                    onRetry = { homeViewModel.retry() }
+                )
+            }
+            else -> {
+                LazyColumn(
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(homeState.posts, key = { it.id }) { post ->
+                        PostCard(
+                            post = post,
+                            onClick = { onNavigateToDetail(post.id) }
+                        )
                     }
                 }
             }
