@@ -14,17 +14,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -45,51 +40,20 @@ import com.milok.app.ui.theme.MilokTheme
 import com.milok.app.ui.viewmodel.AppViewModel
 import com.milok.app.ui.viewmodel.HomeViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     appViewModel: AppViewModel,
     onNavigateToDetail: (Int) -> Unit,
-    onNavigateToSettings: () -> Unit,
+    modifier: Modifier = Modifier,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
     val homeState by homeViewModel.uiState.collectAsState()
-    val isDarkTheme by appViewModel.isDarkTheme.collectAsState()
     val isLoggedIn by appViewModel.isLoggedIn.collectAsState()
     val userName by appViewModel.userName.collectAsState()
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Milok 首页") },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                actions = {
-                    // 主题切换按钮
-                    IconButton(onClick = { appViewModel.toggleTheme() }) {
-                        Icon(
-                            imageVector = if (isDarkTheme) Icons.Filled.LightMode else Icons.Filled.DarkMode,
-                            contentDescription = if (isDarkTheme) "切换到亮色" else "切换到暗色"
-                        )
-                    }
-                    // 设置按钮
-                    IconButton(onClick = onNavigateToSettings) {
-                        Icon(
-                            imageVector = Icons.Filled.Settings,
-                            contentDescription = "设置"
-                        )
-                    }
-                }
-            )
-        }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
+    Column(
+        modifier = modifier.fillMaxSize()
+    ) {
             // 登录状态横条
             LoginBanner(
                 isLoggedIn = isLoggedIn,

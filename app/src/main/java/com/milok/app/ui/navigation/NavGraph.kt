@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.milok.app.ui.screen.DetailScreen
-import com.milok.app.ui.screen.HomeScreen
+import com.milok.app.ui.screen.MainScreen
 import com.milok.app.ui.screen.SettingsScreen
 import com.milok.app.ui.viewmodel.AppViewModel
 
@@ -22,15 +22,15 @@ import com.milok.app.ui.viewmodel.AppViewModel
 fun MilokNavGraph(
     navController: NavHostController,
     appViewModel: AppViewModel,
-    startDestination: String = Screen.Home.route
+    startDestination: String = Screen.Main.route
 ) {
     NavHost(
         navController = navController,
         startDestination = startDestination
     ) {
-        // ─── 首页 ──────────────────────────────────────────────
-        composable(route = Screen.Home.route) {
-            HomeScreen(
+        // ─── 主容器（含底部 Tab） ──────────────────────────────
+        composable(route = Screen.Main.route) {
+            MainScreen(
                 appViewModel = appViewModel,
                 onNavigateToDetail = { postId ->
                     navController.navigate(Screen.Detail.createRoute(postId))

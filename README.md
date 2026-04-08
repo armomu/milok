@@ -1,4 +1,4 @@
-# Milok — Android 原生示例项目
+# Android 原生示例项目 纯AI生成
 
 基于 **Android Studio Hedgehog (2023.1.1)** 创建的 Kotlin + Jetpack Compose 原生 Android 项目，展示现代 Android 架构最佳实践。
 
