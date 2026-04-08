@@ -1,0 +1,76 @@
+package com.milok.app.ui.components
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ErrorOutline
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.milok.app.ui.theme.MilokTheme
+
+/**
+ * 通用错误占位视图
+ */
+@Composable
+fun ErrorView(
+    message: String,
+    onRetry: (() -> Unit)? = null,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            imageVector = Icons.Filled.ErrorOutline,
+            contentDescription = "错误",
+            tint = MaterialTheme.colorScheme.error,
+            modifier = Modifier.size(64.dp)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = message,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center
+        )
+        if (onRetry != null) {
+            Spacer(modifier = Modifier.height(24.dp))
+            Button(onClick = onRetry) {
+                Text("重试")
+            }
+        }
+    }
+}
+
+@Preview(name = "ErrorView - Light", showBackground = true)
+@Composable
+private fun ErrorViewLightPreview() {
+    MilokTheme(darkTheme = false) {
+        ErrorView(message = "网络连接失败，请检查网络后重试", onRetry = {})
+    }
+}
+
+@Preview(name = "ErrorView - Dark", showBackground = true, backgroundColor = 0xFF1C1B1F)
+@Composable
+private fun ErrorViewDarkPreview() {
+    MilokTheme(darkTheme = true) {
+        ErrorView(message = "网络连接失败，请检查网络后重试", onRetry = {})
+    }
+}

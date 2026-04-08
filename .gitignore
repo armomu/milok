@@ -1,0 +1,85 @@
+### ==============================
+### Android / Gradle build output
+### ==============================
+.gradle/
+build/
+app/build/
+**/build/
+
+# Gradle wrapper jar (keep .properties, ignore the jar)
+gradle/wrapper/gradle-wrapper.jar
+
+# Generated files
+*.class
+*.dex
+*.ap_
+*.apk
+*.aar
+*.aab
+
+# Log / profiling
+*.hprof
+*.log
+
+### ==============================
+### Local & sensitive configs
+### ==============================
+# local.properties contains SDK path — machine-specific, never commit
+local.properties
+
+# Keystore / signing (NEVER commit private keys)
+*.jks
+*.keystore
+keystore.properties
+release-keystore.properties
+
+### ==============================
+### Android Studio / IntelliJ IDEA
+### ==============================
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/dictionaries
+.idea/libraries
+.idea/caches
+.idea/modules.xml
+
+# IntelliJ Editor config override
+.editorconfig
+
+# Navigation editor generated safe args
+app/src/main/java/com/milok/app/ui/navigation/*Args.kt
+app/src/main/java/com/milok/app/ui/navigation/*Directions.kt
+
+### ==============================
+### OS generated
+### ==============================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+### ==============================
+### Misc
+### ==============================
+# Kotlin scratch files
+*.kts.iml
+scratch/
+tmp/
+
+# Captured output
+captures/
+
+# External native build
+.cxx/
+
+# Google services (keep the file but flag here as reminder — commit if needed)
+# google-services.json
