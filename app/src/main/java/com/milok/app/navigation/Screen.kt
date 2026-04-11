@@ -1,4 +1,4 @@
-package com.milok.app.ui.navigation
+package com.milok.app.navigation
 
 /**
  * 路由目的地定义
@@ -28,4 +28,7 @@ sealed class Screen(val route: String) {
 
     /** 设置页 */
     object Settings : Screen("settings")
+
+    /** 扫一扫页 */
+    object Scan : Screen("scan")
 }

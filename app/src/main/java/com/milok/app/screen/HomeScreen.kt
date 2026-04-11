@@ -1,4 +1,4 @@
-package com.milok.app.ui.screen
+package com.milok.app.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,13 +15,19 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -32,63 +38,82 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.milok.app.data.model.Post
-import com.milok.app.ui.components.ErrorView
-import com.milok.app.ui.theme.MilokTheme
-import com.milok.app.ui.viewmodel.AppViewModel
-import com.milok.app.ui.viewmodel.HomeViewModel
+import com.milok.app.components.ErrorView
+import com.milok.app.navigation.Screen
+import com.milok.app.theme.MilokTheme
+import com.milok.app.viewmodel.AppViewModel
+import com.milok.app.viewmodel.HomeViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     appViewModel: AppViewModel,
     onNavigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
+    onNavigateToScan:  () -> Unit,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
     val homeState by homeViewModel.uiState.collectAsState()
     val isLoggedIn by appViewModel.isLoggedIn.collectAsState()
     val userName by appViewModel.userName.collectAsState()
-
-    Column(
-        modifier = modifier.fillMaxSize()
-    ) {
-        // 登录状态横条
-        LoginBanner(
-            isLoggedIn = isLoggedIn,
-            userName = userName,
-            onLogin = { appViewModel.login() },
-            onLogout = { appViewModel.logout() }
-        )
-
-        when {
-            homeState.isLoading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
-            }
-            homeState.errorMessage != null -> {
-                ErrorView(
-                    message = homeState.errorMessage ?: "未知错误",
-                    onRetry = { homeViewModel.retry() }
-                )
-            }
-            else -> {
-                LazyColumn(
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(homeState.posts, key = { it.id }) { post ->
-                        PostCard(
-                            post = post,
-                            onClick = { onNavigateToDetail(post.id) }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Milok") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                ),
+                actions = {
+                    IconButton(onClick = onNavigateToScan) {
+                        Icon(
+                            contentDescription = "扫码",
+                            imageVector = Icons.Filled.Settings
                         )
+                    }
+                }
+            )
+        },
+        content = { paddingValues ->
+            // 主要内容区域
+
+            Column(
+                modifier = modifier.fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                // 登录状态横条
+                when {
+                    homeState.isLoading -> {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    }
+                    homeState.errorMessage != null -> {
+                        ErrorView(
+                            message = homeState.errorMessage ?: "未知错误",
+                            onRetry = { homeViewModel.retry() }
+                        )
+                    }
+                    else -> {
+                        LazyColumn(
+                            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(homeState.posts, key = { it.id }) { post ->
+                                PostCard(
+                                    post = post,
+                                    onClick = { onNavigateToDetail(post.id) }
+                                )
+                            }
+                        }
                     }
                 }
             }
         }
-    }
+    )
 }
 
 @Composable

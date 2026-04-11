@@ -1,4 +1,4 @@
-package com.milok.app.ui.screen
+package com.milok.app.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

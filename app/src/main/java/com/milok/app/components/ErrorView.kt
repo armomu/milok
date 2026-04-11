@@ -1,4 +1,4 @@
-package com.milok.app.ui.components
+package com.milok.app.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.milok.app.ui.theme.MilokTheme
+import com.milok.app.theme.MilokTheme
 
 /**
  * 通用错误占位视图

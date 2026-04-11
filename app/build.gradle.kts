@@ -22,7 +22,7 @@ android {
         }
     }
 
-    buildTypes {
+   buildTypes {
         debug {
             isDebuggable = true
             isMinifyEnabled = false
@@ -105,6 +105,15 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+
+    // CameraX
+    implementation(libs.camera.core)
+    implementation(libs.camera.camera2)
+    implementation(libs.camera.lifecycle)
+    implementation(libs.camera.view)
+
+    // ML Kit Barcode Scanning
+    implementation(libs.mlkit.barcode.scanning)
 
     // Debug
     debugImplementation(libs.androidx.ui.tooling)

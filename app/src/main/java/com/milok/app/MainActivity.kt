@@ -9,9 +9,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
-import com.milok.app.ui.navigation.MilokNavGraph
-import com.milok.app.ui.theme.MilokTheme
-import com.milok.app.ui.viewmodel.AppViewModel
+import com.milok.app.navigation.MilokNavGraph
+import com.milok.app.theme.MilokTheme
+import com.milok.app.viewmodel.AppViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

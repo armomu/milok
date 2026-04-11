@@ -1,4 +1,4 @@
-package com.milok.app.ui.viewmodel
+package com.milok.app.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

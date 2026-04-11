@@ -1,4 +1,4 @@
-package com.milok.app.ui.navigation
+package com.milok.app.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -6,10 +6,11 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.milok.app.ui.screen.DetailScreen
-import com.milok.app.ui.screen.MainScreen
-import com.milok.app.ui.screen.SettingsScreen
-import com.milok.app.ui.viewmodel.AppViewModel
+import com.milok.app.screen.DetailScreen
+import com.milok.app.screen.MainScreen
+import com.milok.app.screen.ScanScreen
+import com.milok.app.screen.SettingsScreen
+import com.milok.app.viewmodel.AppViewModel
 
 /**
  * 应用路由图
@@ -37,6 +38,9 @@ fun MilokNavGraph(
                 },
                 onNavigateToSettings = {
                     navController.navigate(Screen.Settings.route)
+                },
+                onNavigateToScan = {
+                    navController.navigate(Screen.Scan.route)
                 }
             )
         }
@@ -62,6 +66,13 @@ fun MilokNavGraph(
         composable(route = Screen.Settings.route) {
             SettingsScreen(
                 appViewModel = appViewModel,
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
+
+        // ─── 扫一扫页 ──────────────────────────────────────────
+        composable(route = Screen.Scan.route) {
+            ScanScreen(
                 onNavigateBack = { navController.popBackStack() }
             )
         }

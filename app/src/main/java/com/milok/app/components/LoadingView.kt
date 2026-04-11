@@ -1,4 +1,4 @@
-package com.milok.app.ui.components
+package com.milok.app.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.milok.app.ui.theme.MilokTheme
+import com.milok.app.theme.MilokTheme
 
 /**
  * 通用加载中占位视图

@@ -1,4 +1,4 @@
-package com.milok.app.ui.theme
+package com.milok.app.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme

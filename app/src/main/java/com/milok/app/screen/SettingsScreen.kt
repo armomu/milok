@@ -1,4 +1,4 @@
-package com.milok.app.ui.screen
+package com.milok.app.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,8 +35,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.milok.app.BuildConfig
-import com.milok.app.ui.theme.MilokTheme
-import com.milok.app.ui.viewmodel.AppViewModel
+import com.milok.app.theme.MilokTheme
+import com.milok.app.viewmodel.AppViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

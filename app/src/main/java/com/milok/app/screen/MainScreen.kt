@@ -1,4 +1,4 @@
-package com.milok.app.ui.screen
+package com.milok.app.screen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -31,7 +31,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.milok.app.ui.viewmodel.AppViewModel
+import com.milok.app.viewmodel.AppViewModel
 
 /**
  * 底部 Tab 数据
@@ -51,7 +51,8 @@ private data class TabItem(
 fun MainScreen(
     appViewModel: AppViewModel,
     onNavigateToDetail: (Int) -> Unit,
-    onNavigateToSettings: () -> Unit
+    onNavigateToSettings: () -> Unit,
+    onNavigateToScan: () -> Unit
 ) {
     val isDarkTheme by appViewModel.isDarkTheme.collectAsState()
 
@@ -114,7 +115,8 @@ fun MainScreen(
             0 -> HomeTabContent(
                 appViewModel = appViewModel,
                 onNavigateToDetail = onNavigateToDetail,
-                modifier = Modifier.padding(paddingValues)
+                modifier = Modifier.padding(paddingValues),
+                onNavigateToScan = onNavigateToScan
             )
             1 -> ShortVideoScreen()
             2 -> AIChatScreen()
@@ -132,11 +134,13 @@ fun MainScreen(
 private fun HomeTabContent(
     appViewModel: AppViewModel,
     onNavigateToDetail: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigateToScan:  () -> Unit
 ) {
     HomeScreen(
         appViewModel = appViewModel,
         onNavigateToDetail = onNavigateToDetail,
-        modifier = modifier
+        modifier = modifier,
+        onNavigateToScan = onNavigateToScan
     )
 }

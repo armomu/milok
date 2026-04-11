@@ -1,4 +1,4 @@
-package com.milok.app.ui.screen
+package com.milok.app.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.milok.app.ui.theme.MilokTheme
+import com.milok.app.theme.MilokTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
