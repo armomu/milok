@@ -48,22 +48,21 @@ app/src/main/java/com/milok/app/
 │   ├── NetworkModule.kt         # OkHttp + Retrofit 提供
 │   └── RepositoryModule.kt      # Repository 绑定
 │
-├── ui/                          # UI 层
-│   ├── components/              # 可复用组件
-│   │   ├── ErrorView.kt
-│   │   └── LoadingView.kt
-│   ├── navigation/
-│   │   ├── Screen.kt            # 路由定义（含参数化路由）
-│   │   └── NavGraph.kt          # NavHost 路由图
-│   ├── screen/                  # 页面
-│   │   ├── HomeScreen.kt        # 首页（文章列表 + 登录状态）
-│   │   ├── DetailScreen.kt      # 详情页（路由传参 postId）
-│   │   └── SettingsScreen.kt    # 设置页（主题切换 + 账号管理）
-│   ├── theme/
-│   │   ├── MilokTheme.kt        # 双主题（亮/暗）ColorScheme
-│   │   ├── Typography.kt        # M3 字体排版
-│   │   └── Shapes.kt            # 圆角 Shapes
-│   └── viewmodel/
+├── components/              # 可复用组件
+│   ├── ErrorView.kt
+│   └── LoadingView.kt
+├── navigation/
+│   ├── Screen.kt            # 路由定义（含参数化路由）
+│   └── NavGraph.kt          # NavHost 路由图
+├── screen/                  # 页面
+│   ├── HomeScreen.kt        # 首页（文章列表 + 登录状态）
+│   ├── DetailScreen.kt      # 详情页（路由传参 postId）
+│   └── SettingsScreen.kt    # 设置页（主题切换 + 账号管理）
+├── theme/
+│   ├── MilokTheme.kt        # 双主题（亮/暗）ColorScheme
+│   ├── Typography.kt        # M3 字体排版
+│   └── Shapes.kt            # 圆角 Shapes
+├── viewmodel/
 │       ├── AppViewModel.kt      # 全局状态（主题 + 登录）
 │       ├── HomeViewModel.kt     # 首页 ViewModel
 │       └── DetailViewModel.kt   # 详情页 ViewModel

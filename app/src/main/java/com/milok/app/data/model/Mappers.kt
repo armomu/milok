@@ -1,6 +1,7 @@
 package com.milok.app.data.model
 
 import com.milok.app.data.network.PostDto
+import com.milok.app.data.network.StationDto
 import com.milok.app.data.network.UserDto
 
 // ─── PostDto → Post ───────────────────────────────────────────────
@@ -26,3 +27,18 @@ fun UserDto.toDomain(): User = User(
 
 @JvmName("userListToDomain")
 fun List<UserDto>.toDomain(): List<User> = map { it.toDomain() }
+
+// ─── StationDto → Station ─────────────────────────────────────────
+fun StationDto.toDomain(): Station = Station(
+    id = id ?: 0,
+    name = name ?: "",
+    serialNumber = serialNumber ?: "",
+    operator = operator ?: "",
+    operatorPhone = operatorPhone ?: "",
+    status = status ?: 0,
+    createTime = createTime ?: "",
+    updateTime = updateTime ?: ""
+)
+
+@JvmName("stationListToDomain")
+fun List<StationDto>.toDomain(): List<Station> = map { it.toDomain() }

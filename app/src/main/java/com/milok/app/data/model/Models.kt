@@ -19,3 +19,17 @@ data class User(
     val email: String,
     val username: String
 )
+
+/**
+ * UI 层使用的 Station 领域模型
+ */
+data class Station(
+    val id: Int,
+    val name: String,
+    val serialNumber: String,
+    val operator: String,
+    val operatorPhone: String,
+    val status: Int,
+    val createTime: String,
+    val updateTime: String
+)

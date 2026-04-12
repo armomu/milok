@@ -26,7 +26,7 @@ android {
         debug {
             isDebuggable = true
             isMinifyEnabled = false
-            buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com/\"")
+            buildConfigField("String", "BASE_URL", "\"http://192.168.1.38:8085/\"")
         }
         release {
             isDebuggable = false
@@ -35,7 +35,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com/\"")
+            buildConfigField("String", "BASE_URL", "\"http://192.168.1.38:8085/\"")
         }
     }
 
