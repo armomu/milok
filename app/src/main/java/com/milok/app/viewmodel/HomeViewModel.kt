@@ -11,7 +11,7 @@ import com.milok.app.data.network.Resource
 import com.milok.app.data.repository.StationRepository
 import kotlinx.coroutines.launch
 
-private const val PAGE_SIZE = 10
+private const val PAGE_SIZE = 6
 
 data class HomeUiState(
     val stations: List<Station> = emptyList(),

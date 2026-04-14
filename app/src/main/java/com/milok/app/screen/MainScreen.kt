@@ -67,31 +67,31 @@ fun MainScreen(
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
 
     Scaffold(
-//        topBar = {
-//            TopAppBar(
-//                title = { Text("Milok · ${tabs[selectedTabIndex].title}") },
-//                colors = TopAppBarDefaults.topAppBarColors(
-//                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-//                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-//                ),
-//                actions = {
-//                    // 主题切换按钮
-//                    IconButton(onClick = { appViewModel.toggleTheme() }) {
-//                        Icon(
-//                            imageVector = if (isDarkTheme) Icons.Filled.LightMode else Icons.Filled.DarkMode,
-//                            contentDescription = if (isDarkTheme) "切换到亮色" else "切换到暗色"
-//                        )
-//                    }
-//                    // 设置按钮
-//                    IconButton(onClick = onNavigateToSettings) {
-//                        Icon(
-//                            imageVector = Icons.Filled.Settings,
-//                            contentDescription = "设置"
-//                        )
-//                    }
-//                }
-//            )
-//        },
+        topBar = {
+            TopAppBar(
+                title = { Text("Milok · ${tabs[selectedTabIndex].title}") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                ),
+                actions = {
+                    // 主题切换按钮
+                    IconButton(onClick = { appViewModel.toggleTheme() }) {
+                        Icon(
+                            imageVector = if (isDarkTheme) Icons.Filled.LightMode else Icons.Filled.DarkMode,
+                            contentDescription = if (isDarkTheme) "切换到亮色" else "切换到暗色"
+                        )
+                    }
+                    // 设置按钮
+                    IconButton(onClick = onNavigateToSettings) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = "设置"
+                        )
+                    }
+                }
+            )
+        },
         bottomBar = {
             NavigationBar {
                 tabs.forEachIndexed { index, tab ->

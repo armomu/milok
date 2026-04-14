@@ -99,124 +99,74 @@ fun HomeScreen(
                 }
             }
     }
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    OutlinedTextField(
-                        value = searchText,
-                        onValueChange = { searchText = it },
-                        placeholder = { Text("输入场站名称搜索") },
-                        singleLine = true,
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Search,
-                                contentDescription = "搜索"
-                            )
-                        },
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                        keyboardActions = KeyboardActions(
-                            onSearch = {
-                                homeViewModel.search(searchText)
-                            }
-                        ),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            unfocusedBorderColor = Color.Transparent,
-                            focusedBorderColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
-                        ),
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                actions = {
-                    IconButton(onClick = onNavigateToScan) {
-                        Icon(
-                            contentDescription = "扫码",
-                            imageVector = Icons.Filled.Settings
-                        )
-                    }
+    Box(modifier = modifier) {
+        when {
+            homeState.isLoading && homeState.stations.isEmpty() -> {
+                // 首次加载中
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
                 }
-            )
-        },
-        content = { paddingValues ->
-            Column(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-            ) {
-                when {
-                    homeState.isLoading && homeState.stations.isEmpty() -> {
-                        // 首次加载中
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator()
+            }
+
+            homeState.errorMessage != null && homeState.stations.isEmpty() -> {
+                // 错误且无数据
+                ErrorView(
+                    message = homeState.errorMessage,
+                    onRetry = { homeViewModel.retry() }
+                )
+            }
+
+            else -> {
+                // 正常列表 + 下拉刷新
+                PullToRefreshBox(
+                    isRefreshing = homeState.isRefreshing,
+                    onRefresh = { homeViewModel.refresh() },
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    LazyColumn(
+                        state = listState,
+                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        items(homeState.stations, key = { it.id }) { station ->
+                            StationCard(
+                                station = station,
+                                onClick = { onNavigateToDetail(station.id) }
+                            )
                         }
-                    }
 
-                    homeState.errorMessage != null && homeState.stations.isEmpty() -> {
-                        // 错误且无数据
-                        ErrorView(
-                            message = homeState.errorMessage,
-                            onRetry = { homeViewModel.retry() }
-                        )
-                    }
+                        // 底部加载更多指示器
+                        if (homeState.isLoadingMore) {
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 12.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator(modifier = Modifier.size(24.dp))
+                                }
+                            }
+                        }
 
-                    else -> {
-                        // 正常列表 + 下拉刷新
-                        PullToRefreshBox(
-                            isRefreshing = homeState.isRefreshing,
-                            onRefresh = { homeViewModel.refresh() },
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            LazyColumn(
-                                state = listState,
-                                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                                verticalArrangement = Arrangement.spacedBy(8.dp),
-                                modifier = Modifier.fillMaxSize()
-                            ) {
-                                items(homeState.stations, key = { it.id }) { station ->
-                                    StationCard(
-                                        station = station,
-                                        onClick = { onNavigateToDetail(station.id) }
+                        // 已加载全部提示
+                        if (!homeState.hasMore && homeState.stations.isNotEmpty()) {
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 12.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "已加载全部 ${homeState.totalCount} 条数据",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
-                                }
-
-                                // 底部加载更多指示器
-                                if (homeState.isLoadingMore) {
-                                    item {
-                                        Box(
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(vertical = 12.dp),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            CircularProgressIndicator(modifier = Modifier.size(24.dp))
-                                        }
-                                    }
-                                }
-
-                                // 已加载全部提示
-                                if (!homeState.hasMore && homeState.stations.isNotEmpty()) {
-                                    item {
-                                        Box(
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(vertical = 12.dp),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            Text(
-                                                text = "已加载全部 ${homeState.totalCount} 条数据",
-                                                style = MaterialTheme.typography.bodySmall,
-                                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                                            )
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -224,7 +174,7 @@ fun HomeScreen(
                 }
             }
         }
-    )
+    }
 }
 
 @Composable
